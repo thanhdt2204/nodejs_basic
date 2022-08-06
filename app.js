@@ -1,7 +1,8 @@
 const http = require('http');
+require('dotenv').config();
 
-const hostname = '127.0.0.1';
-const port = 8080;
+const hostname = process.env.HOST_NAME;
+const port = process.env.PORT;
 
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
