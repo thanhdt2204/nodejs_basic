@@ -1,15 +1,14 @@
-const http = require('http');
+const chalk = require('chalk');
+const express = require('express');
 require('dotenv').config();
 
-const hostname = process.env.HOST_NAME;
+const app = express();
 const port = process.env.PORT;
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World\n');
+app.get('/', (req, res) => {
+    res.send('Hello World!')
 })
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`)
 })
