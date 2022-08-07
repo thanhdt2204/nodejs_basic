@@ -1,2 +1,2 @@
 # nodejs_basic
-Start: npm run app
+Start: npm start
