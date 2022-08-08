@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const express = require('express');
-const router = require('./router.js');
+const router = require('./routes/userRoutes');
 const connection = require('./database');
 require('dotenv').config();
 
@@ -9,11 +9,7 @@ const port = process.env.PORT;
 
 connection.connect(function (err) {
     if (err) throw err;
-    var sql = "SELECT * FROM user";
-    connection.query(sql, function (err, results) {
-        if (err) throw err;
-        console.log(results);
-    })
+    console.log("Connected");
 });
 
 app.use('/api', router);

@@ -1,6 +1,7 @@
 {
   "name": "nodejs_basic",
   "version": "0.1.0",
+  "main": "src/index.js",
   "dependencies": {
     "chalk": "^4.1.2",
     "dotenv": "^16.0.1",
@@ -9,6 +10,6 @@
     "nodemon": "^2.0.19"
   },
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon index.js"
   }
 }
