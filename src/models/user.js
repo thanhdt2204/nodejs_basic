@@ -30,3 +30,5 @@ const User = sequelize.define(
         tableName: 'user'
     }
 );
+
+module.exports = User;
