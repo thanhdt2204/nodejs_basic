@@ -1,5 +1,9 @@
-const message = Object.freeze({
+exports.message = Object.freeze({
     USERNAME_OR_PASSWORD_INCORRECT: 'USERNAME_OR_PASSWORD_INCORRECT'
-})
+});
 
-module.exports = message;
+exports.pagination = Object.freeze({
+    SIZE_DEFAULT: 10
+});
+
+exports.ROLE_USER = "ROLE_USER";
