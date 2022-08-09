@@ -1,10 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.json('Home');
-})
-
 router.get('/users', (req, res) => {
     res.json('Gel all users');
 })
