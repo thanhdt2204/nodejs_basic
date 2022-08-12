@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const User = require('../models/user')();
 const constant = require("../utils/constants");
 
 const getPagination = (page, size) => {
@@ -23,7 +23,7 @@ const getPagingData = (data, page, size, limit) => {
 exports.login = async (req, res, next) => {
     const user = await User.findOne({ where: { email: req.body.email } });
     if (user) {
-        const password_valid = await bcrypt.compare(req.body.password, user.password_hash);
+        const password_valid = await bcrypt.compare(req.body.password, user.password);
         if (password_valid) {
             token = jwt.sign(
                 {},
@@ -48,7 +48,8 @@ exports.getAll = (req, res, next) => {
             role: constant.ROLE_USER
         },
         limit,
-        offset
+        offset,
+        attributes: ['id', 'email', 'firstName', 'lastName']
     }).then(data => {
         const response = getPagingData(data, page, size, limit);
         res.send(response);

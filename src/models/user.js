@@ -1,34 +1,45 @@
-const { DataTypes } = require("sequelize");
+'use strict';
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-const User = sequelize.define(
-    "User",
-    {
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        password_hash: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        first_name: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        last_name: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-    },
-    {
-        timestamps: false,
-        tableName: 'user'
+module.exports = () => {
+    class User extends Model {
+        static associate(models) { }
     }
-);
 
-module.exports = User;
+    User.init(
+        {
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            password: {
+                field: 'password_hash',
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            firstName: {
+                field: 'first_name',
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+            lastName: {
+                field: 'last_name',
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+            role: {
+                type: DataTypes.STRING,
+                allowNull: false
+            }
+        },
+        {
+            sequelize,
+            modelName: 'User',
+            tableName: 'user',
+            timestamps: false
+        }
+    );
+
+    return User;
+};
