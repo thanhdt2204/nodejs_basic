@@ -1,5 +1,6 @@
 const constant = require("../utils/constants");
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const verifyToken = (req, res, next) => {
     const bearerToken = req.headers["authorization"];
@@ -10,7 +11,15 @@ const verifyToken = (req, res, next) => {
         return res.status(401).send(constant.message.UNAUTHORIZED);
     }
     try {
-        jwt.verify(token, process.env.SECRET_KEY, { ignoreExpiration: false });
+        const secrectKey = crypto.createSecretKey(process.env.SECRET_KEY, 'base64');
+        jwt.verify(
+            token,
+            secrectKey,
+            {
+                ignoreExpiration: false,
+                algorithms: 'HS512'
+            }
+        );
     } catch (err) {
         console.log(err);
         return res.status(401).send(constant.message.UNAUTHORIZED);

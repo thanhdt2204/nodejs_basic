@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const User = require('../models/user')();
 const constant = require("../utils/constants");
 
@@ -25,10 +26,15 @@ exports.login = async (req, res, next) => {
     if (user) {
         const password_valid = await bcrypt.compare(req.body.password, user.password);
         if (password_valid) {
+            const secrectKey = crypto.createSecretKey(process.env.SECRET_KEY, 'base64');
             token = jwt.sign(
                 {},
-                process.env.SECRET_KEY,
-                { expiresIn: '24h', subject: user.email }
+                secrectKey,
+                {
+                    expiresIn: '24h',
+                    subject: user.email,
+                    algorithm: 'HS512'
+                }
             );
             res.status(200).send(token);
         } else {
