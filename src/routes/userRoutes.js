@@ -7,6 +7,6 @@ router.post('/login', userAPIs.login);
 
 router.get('/users', auth, userAPIs.getAll);
 
-router.get('/user/:id', userAPIs.get);
+router.get('/user/:email', auth, userAPIs.get);
 
 module.exports = router;

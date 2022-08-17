@@ -45,25 +45,31 @@ exports.login = async (req, res, next) => {
     }
 };
 
-exports.getAll = (req, res, next) => {
+exports.getAll = async (req, res, next) => {
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
 
-    User.findAndCountAll({
+    const userPage = await User.findAndCountAll({
         where: {
             role: constant.ROLE_USER
         },
         limit,
         offset,
         attributes: ['id', 'email', 'firstName', 'lastName']
-    }).then(data => {
-        const response = getPagingData(data, page, size, limit);
-        res.send(response);
-    }).catch(err => {
-        res.status(500).send(err);
     });
+    res.send(getPagingData(userPage, page, size, limit));
 }
 
-exports.get = (req, res, next) => {
-    res.json('Get user ' + req.params.id);
+exports.get = async (req, res, next) => {
+    const user = await User.findOne({
+        where: {
+            email: req.params.email
+        },
+        attributes: ['id', 'email', 'firstName', 'lastName']
+    });
+    if (user === null) {
+        res.send('Not found!');
+    } else {
+        res.send(user);
+    }
 }
