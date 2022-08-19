@@ -9,4 +9,6 @@ router.get('/users', auth, userAPIs.getAll);
 
 router.get('/user/:email', auth, userAPIs.get);
 
+router.post('/user', auth, userAPIs.create);
+
 module.exports = router;

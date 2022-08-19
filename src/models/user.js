@@ -21,12 +21,12 @@ module.exports = () => {
             firstName: {
                 field: 'first_name',
                 type: DataTypes.STRING,
-                allowNull: true
+                allowNull: false
             },
             lastName: {
                 field: 'last_name',
                 type: DataTypes.STRING,
-                allowNull: true
+                allowNull: false
             },
             role: {
                 type: DataTypes.STRING,

@@ -8,3 +8,5 @@ exports.pagination = Object.freeze({
 });
 
 exports.ROLE_USER = "ROLE_USER";
+
+exports.DEFAULT_PASSWORD = "123456";

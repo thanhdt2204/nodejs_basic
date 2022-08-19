@@ -75,3 +75,29 @@ exports.get = async (req, res, next) => {
         res.send(user);
     }
 }
+
+exports.create = async (req, res, next) => {
+    const existUser = await User.findOne({
+        where: {
+            email: req.body.email
+        }
+    });
+    if (existUser !== null) {
+        var err = new BadRequestException('Email exist');
+        next(err);
+    } else {
+        try {
+            const user = await User.create({
+                email: req.body.email,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                role: constant.ROLE_USER,
+                password: await bcrypt.hash(constant.DEFAULT_PASSWORD, 12)
+            });
+            const { id, email, firstName, lastName } = user.dataValues;
+            res.send({ id, email, firstName, lastName });
+        } catch (err) {
+            next(err);
+        }
+    }
+}
