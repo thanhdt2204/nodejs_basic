@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const User = require('../models/user')();
 const constant = require("../utils/constants");
+const { BadRequestException } = require('../exception/errors');
 
 const getPagination = (page, size) => {
     const limit = size ? +size : constant.pagination.SIZE_DEFAULT;
@@ -68,7 +69,8 @@ exports.get = async (req, res, next) => {
         attributes: ['id', 'email', 'firstName', 'lastName']
     });
     if (user === null) {
-        res.send('Not found!');
+        var err = new BadRequestException('User not found');
+        next(err);
     } else {
         res.send(user);
     }
