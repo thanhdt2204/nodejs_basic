@@ -2,17 +2,18 @@ const express = require('express');
 const router = express.Router();
 const userAPIs = require("../controllers/userController");
 const auth = require("../middleware/auth");
+const constant = require("../utils/constants");
 
 router.post('/login', userAPIs.login);
 
-router.get('/users', auth, userAPIs.getAll);
+router.get('/users', auth(constant.ROLE_ADMIN), userAPIs.getAll);
 
-router.get('/user/:email', auth, userAPIs.get);
+router.get('/user/:email', auth([constant.ROLE_ADMIN, constant.ROLE_USER]), userAPIs.get);
 
-router.post('/user', auth, userAPIs.create);
+router.post('/user', auth(constant.ROLE_ADMIN), userAPIs.create);
 
-router.put('/user', auth, userAPIs.update);
+router.put('/user', auth(constant.ROLE_ADMIN), userAPIs.update);
 
-router.delete('/user/:email', auth, userAPIs.delete);
+router.delete('/user/:email', auth(constant.ROLE_ADMIN), userAPIs.delete);
 
 module.exports = router;

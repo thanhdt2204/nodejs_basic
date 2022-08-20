@@ -29,7 +29,7 @@ exports.login = async (req, res, next) => {
         if (password_valid) {
             const secrectKey = crypto.createSecretKey(process.env.SECRET_KEY, 'base64');
             token = jwt.sign(
-                {},
+                { role: user.role },
                 secrectKey,
                 {
                     expiresIn: '24h',

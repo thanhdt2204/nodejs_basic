@@ -1,6 +1,7 @@
 exports.message = Object.freeze({
     USERNAME_OR_PASSWORD_INCORRECT: 'USERNAME_OR_PASSWORD_INCORRECT',
-    UNAUTHORIZED: 'UNAUTHORIZED'
+    UNAUTHORIZED: 'UNAUTHORIZED',
+    PERMISSION_DENIED: 'PERMISSION_DENIED'
 });
 
 exports.pagination = Object.freeze({
@@ -8,5 +9,6 @@ exports.pagination = Object.freeze({
 });
 
 exports.ROLE_USER = "ROLE_USER";
+exports.ROLE_ADMIN = "ROLE_ADMIN";
 
 exports.DEFAULT_PASSWORD = "123456";
