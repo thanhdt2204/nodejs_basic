@@ -101,3 +101,21 @@ exports.create = async (req, res, next) => {
         }
     }
 }
+
+exports.update = async (req, res, next) => {
+    var existUser = await User.findOne({
+        where: {
+            email: req.body.email
+        }
+    });
+    if (existUser === null) {
+        var err = new BadRequestException('User not found');
+        next(err);
+    } else {
+        existUser.firstName = req.body.firstName;
+        existUser.lastName = req.body.lastName;
+        existUser = await existUser.save();
+        const { id, email, firstName, lastName } = existUser.dataValues;
+        res.send({ id, email, firstName, lastName });
+    }
+}
