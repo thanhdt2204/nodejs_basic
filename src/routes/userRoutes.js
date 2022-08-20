@@ -13,4 +13,6 @@ router.post('/user', auth, userAPIs.create);
 
 router.put('/user', auth, userAPIs.update);
 
+router.delete('/user/:email', auth, userAPIs.delete);
+
 module.exports = router;

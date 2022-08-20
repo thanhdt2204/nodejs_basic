@@ -119,3 +119,12 @@ exports.update = async (req, res, next) => {
         res.send({ id, email, firstName, lastName });
     }
 }
+
+exports.delete = async (req, res, next) => {
+    await User.destroy({
+        where: {
+            email: req.params.email
+        }
+    });
+    res.send();
+}
