@@ -4,6 +4,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const handleException = require('./middleware/exception-handler');
 const cors = require('cors');
+const swaggerUI = require("swagger-ui-express");
 
 const app = express();
 const port = process.env.PORT;
@@ -23,6 +24,9 @@ var corsOptions = {
     maxAge: 3600
 }
 app.use(cors(corsOptions));
+
+const swaggerDocument = require('./config/swagger.json');
+app.use("/swagger-ui.html", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use('/api', router);
 

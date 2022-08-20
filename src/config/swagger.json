@@ -1,0 +1,84 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "Api Documentation",
+        "description": "Api Documentation",
+        "license": {
+            "name": "Swagger V2",
+            "url": "https://swagger.io/specification/v2/"
+        },
+        "termsOfService": "urn:tos"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "*/*"
+    ],
+    "securityDefinitions": {
+        "JWT": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorization"
+        }
+    },
+    "tags": [
+        {
+            "name": "login-controller",
+            "description": "Login Controller"
+        }
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "summary": "API-LOGIN",
+                "tags": [
+                    "login-controller"
+                ],
+                "parameters": [
+                    {
+                        "name": "formLogin",
+                        "in": "body",
+                        "description": "formLogin",
+                        "schema": {
+                            "$ref": "#/definitions/FormLogin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": ""
+                        },
+                        "description": "Ok"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "FormLogin": {
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
