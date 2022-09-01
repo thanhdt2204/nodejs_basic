@@ -1,6 +1,7 @@
 const constant = require("../utils/constants");
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const logger = require('../logger');
 
 const verifyToken = (roles = []) => {
     return function (req, res, next) {
@@ -8,7 +9,7 @@ const verifyToken = (roles = []) => {
         const token = bearerToken && bearerToken.startsWith("Bearer ") ? bearerToken.substring(7) : null;
 
         if (!token) {
-            console.log("Token null");
+            logger.info("Token null");
             return res.status(401).send(constant.message.UNAUTHORIZED);
         }
         try {
